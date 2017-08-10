@@ -89,6 +89,7 @@ function animate() {
 	stats.update();
 }
 var movingLeft = true;
+var movingUp = true;
 
 function render() {
 	var timer = Date.now() * 0.0001;
@@ -106,6 +107,19 @@ function render() {
 	}
 	if(scene.position.x === 200) {
 		movingLeft = true;
+	}
+
+	if(scene.position.y > -200 && movingUp) {
+		scene.position.y -= 2;
+	}
+	if(scene.position.y < 200 && !movingUp) {
+		scene.position.y += 2;
+	}
+	if(scene.position.y === -100) {
+		movingUp = false;
+	}
+	if(scene.position.y === 100) {
+		movingUp = true;
 	}
 	//	camera.position.x = Math.cos( timer ) * 800;
 	//		camera.position.z = Math.sin( timer ) * 800;
