@@ -90,9 +90,10 @@ function animate() {
 }
 var movingLeft = true;
 var movingUp = true;
-
 function render() {
+
 	var timer = Date.now() * 0.0001;
+
 	if(scene.position.z < -200) {
 		scene.position.z += 5;
 	}
