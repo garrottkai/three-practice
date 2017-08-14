@@ -13,24 +13,34 @@ var camera = new THREE.PerspectiveCamera( fov, aspect, nearClippingPlane, farCli
 
 camera.position.set( 0, 0, 20 );
 
-var geometry = new THREE.TorusKnotBufferGeometry( 5, 1, 100, 16 );
+var controls = new THREE.OrbitControls(camera, renderer.domElement);
+controls.enableZoom = false;
 
-var material = new THREE.MeshStandardMaterial( {
-    color: 0xb300b3,
+var geometry = new THREE.BoxBufferGeometry( 10, 10, 10 );
+
+var loader = new THREE.TextureLoader();
+loader.crossOrigin = 'anonymous';
+var texture = loader.load('https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/textures/crate.gif');
+
+var material = new THREE.MeshLambertMaterial( {
+    color: 0xffffff,
+    map: texture,
 } );
 
 var mesh = new THREE.Mesh(geometry, material);
 scene.add(mesh);
 
-var ambientLight = new THREE.AmbientLight(0x666666, 1.0);
+var ambientLight = new THREE.AmbientLight(0xffffff, 1.0);
 scene.add(ambientLight);
 
-var directionalLight = new THREE.DirectionalLight(0xffffff, 1.0);
+var directionalLight = new THREE.DirectionalLight(0xffffff, 2.0);
 directionalLight.position.set(0, 10, 0);
 scene.add(directionalLight);
 
 function animate() {
     requestAnimationFrame(animate);
+
+    controls.update();
 
     mesh.rotation.x += 0.01;
     mesh.rotation.y += 0.01;
